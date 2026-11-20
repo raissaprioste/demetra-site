@@ -145,6 +145,7 @@ section{position:relative}
 .frentes-track{display:flex;height:100svh;width:max-content}
 .painel{width:min(78vw,980px);height:100%;flex-shrink:0;padding:clamp(100px,12vh,140px) clamp(28px,4vw,64px) 64px;display:flex;flex-direction:column;gap:22px;position:relative}
 .painel-intro{width:min(52vw,640px);justify-content:center}
+.painel.painel-intro .h2{margin-top:0;max-width:20ch;font-size:clamp(30px,3vw,46px);line-height:1.1}
 .painel-1{background:var(--tangerina);color:var(--abeto)}
 .painel-2{background:var(--abeto-2)}
 .painel-3{background:var(--branco);color:var(--abeto)}
