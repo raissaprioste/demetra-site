@@ -116,6 +116,50 @@ const WHATSAPP = '55XXXXXXXXXXX';
     });
   }
 
+  /* ---------- Depoimentos em páginas de 6, com setas ---------- */
+  const slots = gsap.utils.toArray('.papel-slot');
+  const totalPaginas = Math.max(1, ...slots.map(el => +el.dataset.pagina || 1));
+  const mesaNav = document.querySelector('.mesa-nav');
+  if (mesaNav && totalPaginas > 1) {
+    let pagina = 1, trocando = false;
+    const setas = mesaNav.querySelectorAll('.mesa-seta');
+    const atualEl = mesaNav.querySelector('.mesa-atual');
+    mesaNav.querySelector('.mesa-total').textContent = String(totalPaginas).padStart(2, '0');
+    const daPagina = n => slots.filter(el => (+el.dataset.pagina || 1) === n);
+    const atualizaNav = () => {
+      atualEl.textContent = String(pagina).padStart(2, '0');
+      setas[0].disabled = pagina === 1;
+      setas[1].disabled = pagina === totalPaginas;
+    };
+    slots.forEach(el => el.classList.toggle('is-oculto', (+el.dataset.pagina || 1) !== 1));
+    mesaNav.hidden = false;
+    atualizaNav();
+    const dados = el => { const f = el.querySelector('.papel'); return { x: +f.dataset.x || 0, y: +f.dataset.y || 0, r: +f.dataset.r || 0 }; };
+    const irPara = nova => {
+      if (trocando || nova < 1 || nova > totalPaginas || nova === pagina) return;
+      const sai = daPagina(pagina), entra = daPagina(nova);
+      pagina = nova; atualizaNav();
+      const mesa = document.querySelector('.mesa-papeis');
+      const troca = () => {
+        sai.forEach(el => el.classList.add('is-oculto'));
+        gsap.set(sai, { clearProps: 'transform,opacity,visibility' });
+        entra.forEach(el => el.classList.remove('is-oculto'));
+        const topo = mesa.getBoundingClientRect().top;
+        if (topo < 0 && lenis) lenis.scrollTo(mesa, { offset: -120, duration: 0.8 });
+      };
+      if (reduce) { troca(); return; }
+      trocando = true;
+      mesa.style.minHeight = mesa.offsetHeight + 'px';
+      gsap.timeline({ onComplete: () => { trocando = false; mesa.style.minHeight = ''; if (window.ScrollTrigger) ScrollTrigger.refresh(); } })
+        .to(sai, { autoAlpha: 0, yPercent: -10, rotate: (i, el) => dados(el).r * 0.6, duration: 0.35, stagger: 0.03, ease: 'power2.in' })
+        .add(troca)
+        .fromTo(entra,
+          { autoAlpha: 0, xPercent: (i, el) => dados(el).x * 0.6, yPercent: (i, el) => dados(el).y * 0.6, rotate: (i, el) => dados(el).r * 1.4 },
+          { autoAlpha: 1, xPercent: 0, yPercent: 0, rotate: 0, duration: 1, stagger: 0.07, ease: 'expo.out' });
+    };
+    setas.forEach(b => b.addEventListener('click', () => irPara(pagina + (+b.dataset.dir))));
+  }
+
   /* ---------- WhatsApp flutuante: abeto sobre fundos tangerina ---------- */
   const waFloat = document.querySelector('.wa-float');
   if (waFloat) {
@@ -317,6 +361,11 @@ const WHATSAPP = '55XXXXXXXXXXX';
       { xPercent: +p.dataset.x * espalha, yPercent: +p.dataset.y * espalha, rotate: +p.dataset.r * (desktop() ? 1.6 : 0.6) },
       { xPercent: 0, yPercent: 0, rotate: +p.dataset.r * 0.15, ease: 'none',
         scrollTrigger: { trigger: '.mesa-papeis', start: 'top 95%', end: 'center 55%', scrub: 1 } });
+  });
+  /* marca-texto tangerina passa sobre os trechos destacados dos prints */
+  document.querySelectorAll('.print-shot').forEach(shot => {
+    gsap.to(shot.querySelectorAll('.marca'), { scaleX: 1, duration: 0.7, stagger: 0.35, ease: 'power2.inOut',
+      scrollTrigger: { trigger: shot, start: 'top 65%' } });
   });
   if (fine) {
     const area = document.querySelector('.s-prova');

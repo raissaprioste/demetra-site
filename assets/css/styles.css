@@ -279,3 +279,18 @@ section{position:relative}
 /* ---------- Prints reais de depoimento ---------- */
 .print-real img{display:block;width:100%;height:auto;border-radius:8px;background:#F4F6F5}
 .print-real figcaption{opacity:.6;font-size:12px}
+
+/* ---------- Mesa de depoimentos em páginas de 6 ---------- */
+.papel-slot{will-change:transform}
+.papel-slot.is-oculto{display:none}
+.mesa-nav{display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:48px}
+.mesa-nav[hidden]{display:none}
+.mesa-seta{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--abeto);background:transparent;color:var(--abeto);font-size:20px;line-height:1;cursor:pointer;transition:background-color .3s ease,color .3s ease,opacity .3s ease}
+.mesa-seta:hover{background:var(--abeto);color:var(--branco)}
+.mesa-seta:disabled{opacity:.25;pointer-events:none}
+.mesa-contador{font-size:13px;letter-spacing:.04em;min-width:64px;text-align:center}
+
+/* ---------- Marca-texto nos prints ---------- */
+.print-shot{position:relative}
+.marca{position:absolute;background:var(--tangerina);mix-blend-mode:multiply;opacity:.55;border-radius:3px;transform:scaleX(0);transform-origin:left center;pointer-events:none}
+@media (prefers-reduced-motion: reduce){.marca{transform:none}}
