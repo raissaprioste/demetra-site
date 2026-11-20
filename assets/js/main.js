@@ -116,6 +116,21 @@ const WHATSAPP = '55XXXXXXXXXXX';
     });
   }
 
+  /* ---------- WhatsApp flutuante: abeto sobre fundos tangerina ---------- */
+  const waFloat = document.querySelector('.wa-float');
+  if (waFloat) {
+    const FUNDO_TANGERINA = '.painel-1, .s-final';
+    let quadro = 0;
+    const checaFundo = () => {
+      if (++quadro % 6) return;
+      const r = waFloat.getBoundingClientRect();
+      const pilha = document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      const fundo = pilha.find(el => el !== waFloat && !waFloat.contains(el));
+      waFloat.classList.toggle('is-dark', !!(fundo && fundo.closest(FUNDO_TANGERINA)));
+    };
+    gsap.ticker.add(checaFundo);
+  }
+
   if (reduce) return;
 
   /* =========================================================
@@ -203,6 +218,8 @@ const WHATSAPP = '55XXXXXXXXXXX';
     return s;
   });
   notaEl.setAttribute('aria-label', notaTexto);
+  /* micropausa depois de "né?" */
+  const notaCorte = notaTexto.indexOf('né?') >= 0 ? notaTexto.indexOf('né?') + 3 : notaLetras.length;
   gsap.set(notaEl, { autoAlpha: 1 });
   gsap.set('.strike', { scaleX: 0, rotation: -1.2, transformOrigin: 'left center' });
 
@@ -210,7 +227,8 @@ const WHATSAPP = '55XXXXXXXXXXX';
     .to('.draft-text', { autoAlpha: 0.9, y: 0, duration: 0.7 })
     .to('.strike', { scaleX: 1, duration: 0.8, ease: 'power1.inOut' }, '+=0.15')
     .to('.draft-text', { autoAlpha: 0.38, duration: 0.8 }, '-=0.3')
-    .to(notaLetras, { visibility: 'visible', duration: 0.01, stagger: { each: 0.03, ease: 'none' } }, '+=0.15')
+    .to(notaLetras.slice(0, notaCorte), { visibility: 'visible', duration: 0.01, stagger: { each: 0.03, ease: 'none' } }, '+=0.15')
+    .to(notaLetras.slice(notaCorte), { visibility: 'visible', duration: 0.01, stagger: { each: 0.03, ease: 'none' } }, '+=0.22')
     .to('.hero-title .li', { yPercent: 0, duration: 1, stagger: 0.12, ease: 'expo.out' }, '+=0.45')
     .to('.hl', { '--hl': 1, duration: 0.7, ease: 'power2.inOut' }, '-=0.55')
     .to(['.hero-lead', '.hero-actions'], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '+=0.15')
@@ -277,7 +295,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
       scrollTrigger: { trigger: '.s-frentes', start: 'top top', end: () => '+=' + dist(), scrub: 1, pin: true, invalidateOnRefresh: true }
     });
     document.querySelectorAll('.painel:not(.painel-intro)').forEach(p => {
-      gsap.from(p.querySelectorAll('.h2, .lead, .tags, .btn'), {
+      gsap.from(p.querySelectorAll('.num-c, .h2, .lead, .tags, .btn'), {
         y: 60, autoAlpha: 0, stagger: 0.08, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: p, containerAnimation: scrollTween, start: 'left 70%' }
       });

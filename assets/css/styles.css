@@ -249,3 +249,24 @@ section{position:relative}
 .intro-word{display:inline-block;padding:.06em 0 .1em;margin:-.06em 0 -.1em;color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(transparent,transparent)}
 .intro-dot{display:inline-block;color:var(--tangerina);font-weight:400;transform-origin:50% 75%}
 @media (prefers-reduced-motion: reduce){.intro-on .intro{display:none}}
+
+/* ---------- Frentes · ênfase e numeração ---------- */
+.painel .enfase{font-style:normal;color:var(--tangerina)}
+.painel .num-c{margin-top:auto;width:46px;height:46px;border:1.5px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.painel .num-c + .h2{margin-top:0}
+
+/* ---------- WhatsApp flutuante sobre fundo tangerina ---------- */
+.wa-float{transition:transform .3s var(--ease),background-color .35s ease,color .35s ease}
+.wa-float.is-dark{background:var(--abeto);color:var(--tangerina)}
+
+/* ---------- Leituras (Substack) ---------- */
+.s-leituras{background:var(--abeto);padding:clamp(90px,11vw,150px) 0}
+.leituras-title{margin-bottom:clamp(36px,4vw,56px)}
+.leituras-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+.leitura{display:flex;flex-direction:column;gap:18px;min-height:250px;padding:26px 24px 22px;border:1px solid rgba(253,239,228,.18);border-radius:6px;color:var(--claro);text-decoration:none;transition:border-color .35s ease,background-color .35s ease,transform .45s var(--ease)}
+.leitura:hover{border-color:var(--tangerina);background:rgba(240,138,62,.06);transform:translateY(-4px)}
+.leitura .autor{font-size:12px;opacity:.6}
+.leitura-titulo{font-family:var(--f-display);font-size:clamp(21px,1.7vw,26px);line-height:1.15}
+.leitura .ler{margin-top:auto;font-size:12px;color:var(--tangerina)}
+@media (max-width:1100px){.leituras-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.leituras-grid{grid-template-columns:1fr}.leitura{min-height:0}}
