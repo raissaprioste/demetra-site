@@ -117,7 +117,8 @@ section{position:relative}
 .hl{position:relative;display:inline-block;color:var(--abeto);padding:0 .14em .04em;margin-top:.08em;z-index:0}
 .hl::before{content:'';position:absolute;inset:0;background:var(--tangerina);border-radius:.08em;z-index:-1;transform-origin:left;transform:scaleX(var(--hl,1))}
 .hero-lead{margin-top:40px}
-.hero-actions{margin-top:40px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.hero-actions{margin-top:40px;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.hero-hint{font-size:11.5px;opacity:.45}
 .fourth-wall{position:absolute;right:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)));top:96px;text-align:right;opacity:.6;max-width:560px}
 .scroll-cue{position:absolute;left:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)));bottom:40px;opacity:.6}
 

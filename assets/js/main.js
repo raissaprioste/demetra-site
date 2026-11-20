@@ -24,7 +24,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
     const d = new Date();
     clock.textContent = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   };
-  tick(); setInterval(tick, 20000);
+  if (clock) { tick(); setInterval(tick, 20000); }
 
   const tituloOriginal = document.title;
   document.addEventListener('visibilitychange', () => {
@@ -189,7 +189,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
 
   gsap.set('.hero-title .li', { yPercent: 110 });
   gsap.set('.hl', { '--hl': 0 });
-  gsap.set(['.hero-lead', '.hero-actions', '.fourth-wall', '.scroll-cue', '.nav'], { autoAlpha: 0 });
+  gsap.set(['.hero-lead', '.hero-actions', '.nav'], { autoAlpha: 0 });
   gsap.set('.draft-text', { autoAlpha: 0, y: 16 });
   gsap.set(['.hero-lead', '.hero-actions'], { y: 18 });
   /* nota de margem: datilografada letra por letra */
@@ -209,13 +209,13 @@ const WHATSAPP = '55XXXXXXXXXXX';
 
   hero
     .to('.draft-text', { autoAlpha: 0.9, y: 0, duration: 0.7 })
-    .to('.strike', { scaleX: 1, duration: 0.8, ease: 'power1.inOut' }, '+=0.6')
+    .to('.strike', { scaleX: 1, duration: 0.8, ease: 'power1.inOut' }, '+=0.15')
     .to('.draft-text', { autoAlpha: 0.38, duration: 0.8 }, '-=0.3')
     .to(notaLetras, { visibility: 'visible', duration: 0.01, stagger: { each: 0.03, ease: 'none' } }, '+=0.15')
     .to('.hero-title .li', { yPercent: 0, duration: 1, stagger: 0.12, ease: 'expo.out' }, '+=0.45')
     .to('.hl', { '--hl': 1, duration: 0.7, ease: 'power2.inOut' }, '-=0.55')
     .to(['.hero-lead', '.hero-actions'], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '+=0.15')
-    .to(['.nav', '.nav-links', '.nav .btn', '.fourth-wall', '.scroll-cue'], { autoAlpha: 1, duration: 0.6 }, '<');
+    .to(['.nav', '.nav-links', '.nav .btn'], { autoAlpha: 1, duration: 0.6 }, '<');
 
 
   /* o título se afasta ao rolar */
