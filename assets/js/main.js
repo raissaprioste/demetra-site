@@ -138,13 +138,30 @@ const WHATSAPP = '55XXXXXXXXXXX';
     if (lenis) lenis.stop();
     const logoIntro = introEl.querySelector('.intro-logo');
     const logoNav = document.querySelector('.nav .logo');
-    gsap.set('.intro .il', { yPercent: 115 });
-    gsap.set('.intro-dot', { autoAlpha: 0, y: -40, scale: 0.4 });
+    const palavra = introEl.querySelector('.intro-word');
+    gsap.set('.intro-dot', { autoAlpha: 0, scale: 0.55 });
 
-    const intro = gsap.timeline({ delay: 0.25, onComplete: fimIntro });
+    /* onda: faixas concêntricas de tangerina sobem de baixo e pintam o nome, que assenta em creme */
+    const CORES = ['#F08A3E', '#B85A1C', '#F08A3E', '#FDEFE4'];
+    const onda = { p: 0 };
+    const pintar = () => {
+      const W = palavra.offsetWidth, H = palavra.offsetHeight;
+      const fs = parseFloat(getComputedStyle(palavra).fontSize);
+      const b = fs * 0.35, faixa = CORES.length * b;
+      const cy = H * 1.8;
+      const rMin = cy - H - b, rMax = Math.hypot(W / 2, cy) + faixa + b;
+      const R = rMin + onda.p * (rMax - rMin);
+      const st = ['#FDEFE4 0px', `#FDEFE4 ${Math.max(0, R - faixa)}px`];
+      CORES.forEach((c, k) => st.push(`${c} ${R - faixa + (k + 0.5) * b}px`));
+      st.push(`rgba(253,239,228,0) ${R + b * 0.6}px`);
+      palavra.style.backgroundImage = `radial-gradient(circle at 50% ${cy}px, ${st.join(',')})`;
+    };
+
+    const intro = gsap.timeline({ delay: 0.3, onComplete: fimIntro });
     intro
-      .to('.intro .il', { yPercent: 0, duration: 1.05, stagger: 0.07, ease: 'expo.out' })
-      .to('.intro-dot', { autoAlpha: 1, y: 0, scale: 1, duration: 0.55, ease: 'back.out(3)' }, '-=0.45')
+      .to(onda, { p: 1, duration: 3, ease: 'power2.inOut', onUpdate: pintar,
+        onComplete: () => { palavra.style.backgroundImage = 'linear-gradient(#FDEFE4,#FDEFE4)'; } })
+      .to('.intro-dot', { autoAlpha: 1, scale: 1, duration: 1.6, ease: 'power4.out' }, 1.6)
       .add(() => {
         /* calcula o voo até a logo da nav (FLIP) */
         const a = logoIntro.getBoundingClientRect();
@@ -154,11 +171,11 @@ const WHATSAPP = '55XXXXXXXXXXX';
           x: (b.left + b.width / 2) - (a.left + a.width / 2),
           y: (b.top + b.height / 2) - (a.top + a.height / 2),
           scale: escala, duration: 1, ease: 'expo.inOut'
-        }, '+=0.55')
+        }, 3 + 0.6)
         .to(introEl, { backgroundColor: 'rgba(15,42,40,0)', duration: 0.6, ease: 'power2.out' }, '-=0.35')
         .set('.nav', { autoAlpha: 1 })
         .set('.nav-links, .nav .btn', { autoAlpha: 0 }, '<');
-      }, '+=0');
+      }, 0);
 
     /* clique ou tecla pula a intro */
     const pular = () => { if (introAcabou) return; intro.kill(); fimIntro(); };
