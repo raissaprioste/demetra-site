@@ -281,10 +281,6 @@ const WHATSAPP = '55XXXXXXXXXXX';
         y: 60, autoAlpha: 0, stagger: 0.08, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: p, containerAnimation: scrollTween, start: 'left 70%' }
       });
-      gsap.from(p.querySelector('.nota'), {
-        x: 40, autoAlpha: 0, duration: 0.8,
-        scrollTrigger: { trigger: p, containerAnimation: scrollTween, start: 'left 55%' }
-      });
     });
   });
   mmFrentes.add('(max-width: 900px)', () => {
