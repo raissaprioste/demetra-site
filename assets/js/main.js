@@ -173,8 +173,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
           scale: escala, duration: 1, ease: 'expo.inOut'
         }, 2.7)
         .to(introEl, { backgroundColor: 'rgba(15,42,40,0)', duration: 0.6, ease: 'power2.out' }, '-=0.35')
-        .set('.nav', { autoAlpha: 1 })
-        .set('.nav-links, .nav .btn', { autoAlpha: 0 }, '<');
+        .set('.nav', { autoAlpha: 1 });
       }, 0);
 
     /* clique ou tecla pula a intro */
@@ -215,7 +214,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
     .to('.hero-title .li', { yPercent: 0, duration: 1, stagger: 0.12, ease: 'expo.out' }, '+=0.45')
     .to('.hl', { '--hl': 1, duration: 0.7, ease: 'power2.inOut' }, '-=0.55')
     .to(['.hero-lead', '.hero-actions'], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '+=0.15')
-    .to(['.nav', '.nav-links', '.nav .btn'], { autoAlpha: 1, duration: 0.6 }, '<');
+    .to('.nav', { autoAlpha: 1, duration: 0.6 }, '<');
 
 
   /* o título se afasta ao rolar */
