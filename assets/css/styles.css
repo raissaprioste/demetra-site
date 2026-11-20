@@ -239,3 +239,12 @@ section{position:relative}
   .dentro li,.mesa-text .sw{opacity:1}
   .draft-note{opacity:1}
 }
+
+/* ---------- Intro · logo em tela cheia ---------- */
+.intro{display:none}
+.intro-on .intro{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:var(--abeto);cursor:pointer}
+.intro-logo{font-family:var(--f-display);font-weight:400;font-size:min(25vw,46vh);line-height:1;letter-spacing:-.01em;color:var(--claro);white-space:nowrap;will-change:transform}
+.intro-mask{display:inline-block;overflow:hidden;padding:.06em 0 .1em;margin:-.06em 0 -.1em;vertical-align:bottom}
+.intro-logo .il{display:inline-block}
+.intro-dot{display:inline-block;color:var(--tangerina);font-weight:400}
+@media (prefers-reduced-motion: reduce){.intro-on .intro{display:none}}

@@ -121,7 +121,55 @@ const WHATSAPP = '55XXXXXXXXXXX';
   /* =========================================================
      01 · PRIMEIRA DOBRA — o título genérico é riscado e reescrito
      ========================================================= */
-  const hero = gsap.timeline({ delay: 0.3, defaults: { ease: 'power3.out' } });
+  /* ---------- Intro: "demetra." em tela cheia, depois a logo voa para a nav ---------- */
+  const introEl = document.querySelector('.intro');
+  const hero = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+
+  let introAcabou = false;
+  const fimIntro = () => {
+    if (introAcabou) return;
+    introAcabou = true;
+    document.documentElement.classList.remove('intro-on');
+    if (lenis) lenis.start();
+    hero.play();
+  };
+
+  if (introEl && getComputedStyle(introEl).display !== 'none') {
+    if (lenis) lenis.stop();
+    const logoIntro = introEl.querySelector('.intro-logo');
+    const logoNav = document.querySelector('.nav .logo');
+    gsap.set('.intro .il', { yPercent: 115 });
+    gsap.set('.intro-dot', { autoAlpha: 0, y: -40, scale: 0.4 });
+
+    const intro = gsap.timeline({ delay: 0.25, onComplete: fimIntro });
+    intro
+      .to('.intro .il', { yPercent: 0, duration: 1.05, stagger: 0.07, ease: 'expo.out' })
+      .to('.intro-dot', { autoAlpha: 1, y: 0, scale: 1, duration: 0.55, ease: 'back.out(3)' }, '-=0.45')
+      .add(() => {
+        /* calcula o voo até a logo da nav (FLIP) */
+        const a = logoIntro.getBoundingClientRect();
+        const b = logoNav.getBoundingClientRect();
+        const escala = b.width / a.width;
+        intro.to(logoIntro, {
+          x: (b.left + b.width / 2) - (a.left + a.width / 2),
+          y: (b.top + b.height / 2) - (a.top + a.height / 2),
+          scale: escala, duration: 1, ease: 'expo.inOut'
+        }, '+=0.55')
+        .to(introEl, { backgroundColor: 'rgba(15,42,40,0)', duration: 0.6, ease: 'power2.out' }, '-=0.35')
+        .set('.nav', { autoAlpha: 1 })
+        .set('.nav-links, .nav .btn', { autoAlpha: 0 }, '<');
+      }, '+=0');
+
+    /* clique ou tecla pula a intro */
+    const pular = () => { if (introAcabou) return; intro.kill(); fimIntro(); };
+    introEl.addEventListener('click', pular);
+    window.addEventListener('keydown', pular, { once: true });
+    /* segurança: nunca prende a página */
+    setTimeout(() => { if (document.documentElement.classList.contains('intro-on')) fimIntro(); }, 6000);
+  } else {
+    hero.delay(0.3).play();
+  }
+
   gsap.set('.hero-title .li', { yPercent: 110 });
   gsap.set('.hl', { '--hl': 0 });
   gsap.set(['.hero-lead', '.hero-actions', '.fourth-wall', '.scroll-cue', '.nav'], { autoAlpha: 0 });
@@ -138,7 +186,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
     .to('.hero-title .li', { yPercent: 0, duration: 1, stagger: 0.12, ease: 'expo.out' }, '+=0.15')
     .to('.hl', { '--hl': 1, duration: 0.7, ease: 'power2.inOut' }, '-=0.55')
     .to(['.hero-lead', '.hero-actions'], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '-=0.3')
-    .to(['.nav', '.fourth-wall', '.scroll-cue'], { autoAlpha: 1, duration: 0.6 }, '<');
+    .to(['.nav', '.nav-links', '.nav .btn', '.fourth-wall', '.scroll-cue'], { autoAlpha: 1, duration: 0.6 }, '<');
 
 
   /* o título se afasta ao rolar */
