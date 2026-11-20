@@ -192,15 +192,27 @@ const WHATSAPP = '55XXXXXXXXXXX';
   gsap.set(['.hero-lead', '.hero-actions', '.fourth-wall', '.scroll-cue', '.nav'], { autoAlpha: 0 });
   gsap.set('.draft-text', { autoAlpha: 0, y: 16 });
   gsap.set(['.hero-lead', '.hero-actions'], { y: 18 });
-  gsap.set('.draft-note', { x: -10 });
+  /* nota de margem: datilografada letra por letra */
+  const notaEl = document.querySelector('.draft-note');
+  const notaTexto = notaEl.textContent;
+  notaEl.textContent = '';
+  const notaLetras = [...notaTexto].map(c => {
+    const s = document.createElement('span');
+    s.textContent = c;
+    s.style.visibility = 'hidden';
+    notaEl.appendChild(s);
+    return s;
+  });
+  notaEl.setAttribute('aria-label', notaTexto);
+  gsap.set(notaEl, { autoAlpha: 1 });
   gsap.set('.strike', { scaleX: 0, rotation: -1.2, transformOrigin: 'left center' });
 
   hero
     .to('.draft-text', { autoAlpha: 0.9, y: 0, duration: 0.7 })
-    .to('.strike', { scaleX: 1, duration: 0.55, ease: 'power2.inOut' }, '+=0.6')
-    .to('.draft-note', { autoAlpha: 1, x: 0, duration: 0.4 }, '-=0.1')
-    .to('.draft-text', { autoAlpha: 0.38, duration: 0.5 }, '<')
-    .to('.hero-title .li', { yPercent: 0, duration: 1, stagger: 0.12, ease: 'expo.out' }, '+=0.15')
+    .to('.strike', { scaleX: 1, duration: 1.2, ease: 'power1.inOut' }, '+=0.6')
+    .to('.draft-text', { autoAlpha: 0.38, duration: 0.8 }, '-=0.3')
+    .to(notaLetras, { visibility: 'visible', duration: 0.01, stagger: { each: 0.055, ease: 'none' } }, '+=0.2')
+    .to('.hero-title .li', { yPercent: 0, duration: 1, stagger: 0.12, ease: 'expo.out' }, '+=0.45')
     .to('.hl', { '--hl': 1, duration: 0.7, ease: 'power2.inOut' }, '-=0.55')
     .to(['.hero-lead', '.hero-actions'], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '-=0.3')
     .to(['.nav', '.nav-links', '.nav .btn', '.fourth-wall', '.scroll-cue'], { autoAlpha: 1, duration: 0.6 }, '<');
