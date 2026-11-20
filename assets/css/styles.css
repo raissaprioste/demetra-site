@@ -283,11 +283,20 @@ section{position:relative}
 /* ---------- Mesa de depoimentos em páginas de 6 ---------- */
 .papel-slot{will-change:transform}
 .papel-slot.is-oculto{display:none}
-.mesa-nav{display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:48px}
+.mesa-palco{position:relative}
+.mesa-nav{position:absolute;inset:0;pointer-events:none}
 .mesa-nav[hidden]{display:none}
-.mesa-seta{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--abeto);background:transparent;color:var(--abeto);font-size:20px;line-height:1;cursor:pointer;transition:background-color .3s ease,color .3s ease,opacity .3s ease}
+.mesa-seta{--seta:min(54px,calc(var(--pad) - 8px));position:absolute;top:50%;width:var(--seta);height:var(--seta);margin-top:calc(var(--seta) / -2);pointer-events:auto;border-radius:50%;border:1.5px solid var(--abeto);background:var(--branco);color:var(--abeto);font-size:20px;line-height:1;cursor:pointer;transition:background-color .3s ease,color .3s ease,opacity .3s ease}
+.mesa-seta[data-dir="-1"]{left:calc(var(--pad) / -2 - var(--seta) / 2)}
+.mesa-seta[data-dir="1"]{right:calc(var(--pad) / -2 - var(--seta) / 2)}
 .mesa-seta:hover{background:var(--abeto);color:var(--branco)}
-.mesa-seta:disabled{opacity:.25;pointer-events:none}
+.mesa-seta:disabled{opacity:.2;pointer-events:none}
+.mesa-contador{position:absolute;left:50%;bottom:-52px;transform:translateX(-50%)}
+@media (max-width:900px){
+  .mesa-nav{position:static;display:flex;align-items:center;justify-content:center;gap:18px;margin-top:36px}
+  .mesa-seta,.mesa-contador{position:static;margin:0;transform:none}
+  .mesa-seta{--seta:48px}
+}
 .mesa-contador{font-size:13px;letter-spacing:.04em;min-width:64px;text-align:center}
 
 /* ---------- Marca-texto nos prints ---------- */
