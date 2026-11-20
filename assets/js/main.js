@@ -209,12 +209,12 @@ const WHATSAPP = '55XXXXXXXXXXX';
 
   hero
     .to('.draft-text', { autoAlpha: 0.9, y: 0, duration: 0.7 })
-    .to('.strike', { scaleX: 1, duration: 1.2, ease: 'power1.inOut' }, '+=0.6')
+    .to('.strike', { scaleX: 1, duration: 0.8, ease: 'power1.inOut' }, '+=0.6')
     .to('.draft-text', { autoAlpha: 0.38, duration: 0.8 }, '-=0.3')
-    .to(notaLetras, { visibility: 'visible', duration: 0.01, stagger: { each: 0.055, ease: 'none' } }, '+=0.2')
+    .to(notaLetras, { visibility: 'visible', duration: 0.01, stagger: { each: 0.03, ease: 'none' } }, '+=0.15')
     .to('.hero-title .li', { yPercent: 0, duration: 1, stagger: 0.12, ease: 'expo.out' }, '+=0.45')
     .to('.hl', { '--hl': 1, duration: 0.7, ease: 'power2.inOut' }, '-=0.55')
-    .to(['.hero-lead', '.hero-actions'], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '-=0.3')
+    .to(['.hero-lead', '.hero-actions'], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '+=0.15')
     .to(['.nav', '.nav-links', '.nav .btn', '.fourth-wall', '.scroll-cue'], { autoAlpha: 1, duration: 0.6 }, '<');
 
 
