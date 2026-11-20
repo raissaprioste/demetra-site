@@ -149,7 +149,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
       const fs = parseFloat(getComputedStyle(palavra).fontSize);
       const b = fs * 0.35, faixa = CORES.length * b;
       const cy = H * 1.8;
-      const rMin = cy - H - b, rMax = Math.hypot(W / 2, cy) + faixa + b;
+      const rMin = cy - H, rMax = Math.hypot(W / 2, cy) + faixa + b;
       const R = rMin + onda.p * (rMax - rMin);
       const st = ['#FDEFE4 0px', `#FDEFE4 ${Math.max(0, R - faixa)}px`];
       CORES.forEach((c, k) => st.push(`${c} ${R - faixa + (k + 0.5) * b}px`));
@@ -157,11 +157,11 @@ const WHATSAPP = '55XXXXXXXXXXX';
       palavra.style.backgroundImage = `radial-gradient(circle at 50% ${cy}px, ${st.join(',')})`;
     };
 
-    const intro = gsap.timeline({ delay: 0.3, onComplete: fimIntro });
+    const intro = gsap.timeline({ delay: 0.1, onComplete: fimIntro });
     intro
-      .to(onda, { p: 1, duration: 3, ease: 'power2.inOut', onUpdate: pintar,
+      .to(onda, { p: 1, duration: 2.8, ease: 'sine.inOut', onUpdate: pintar,
         onComplete: () => { palavra.style.backgroundImage = 'linear-gradient(#FDEFE4,#FDEFE4)'; } })
-      .to('.intro-dot', { autoAlpha: 1, scale: 1, duration: 1.6, ease: 'power4.out' }, 1.6)
+      .to('.intro-dot', { autoAlpha: 1, scale: 1, duration: 1.6, ease: 'power4.out' }, 1.4)
       .add(() => {
         /* calcula o voo até a logo da nav (FLIP) */
         const a = logoIntro.getBoundingClientRect();
@@ -171,7 +171,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
           x: (b.left + b.width / 2) - (a.left + a.width / 2),
           y: (b.top + b.height / 2) - (a.top + a.height / 2),
           scale: escala, duration: 1, ease: 'expo.inOut'
-        }, 3 + 0.6)
+        }, 2.7)
         .to(introEl, { backgroundColor: 'rgba(15,42,40,0)', duration: 0.6, ease: 'power2.out' }, '-=0.35')
         .set('.nav', { autoAlpha: 1 })
         .set('.nav-links, .nav .btn', { autoAlpha: 0 }, '<');
