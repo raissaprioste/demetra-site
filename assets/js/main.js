@@ -324,33 +324,17 @@ const WHATSAPP = '55XXXXXXXXXXX';
   /* =========================================================
      03 · FRENTES — rolagem horizontal fixa (desktop)
      ========================================================= */
-  const mmFrentes = gsap.matchMedia();
-  mmFrentes.add('(min-width: 901px)', () => {
-    const track = document.querySelector('.frentes-track');
-    const dist = () => track.scrollWidth - window.innerWidth;
-    const scrollTween = gsap.to(track, {
-      x: () => -dist(), ease: 'none',
-      scrollTrigger: { trigger: '.s-frentes', start: 'top top', end: () => '+=' + dist(), scrub: 1, pin: true, invalidateOnRefresh: true }
-    });
-    document.querySelectorAll('.painel:not(.painel-intro)').forEach(p => {
-      gsap.from(p.querySelectorAll('.num-c, .h2, .lead, .tags, .btn'), {
-        y: 60, autoAlpha: 0, stagger: 0.08, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: p, containerAnimation: scrollTween, start: 'left 70%' }
-      });
-    });
+  /* rolagem horizontal fixa — no celular e no computador */
+  const track = document.querySelector('.frentes-track');
+  const dist = () => track.scrollWidth - window.innerWidth;
+  const scrollTween = gsap.to(track, {
+    x: () => -dist(), ease: 'none',
+    scrollTrigger: { trigger: '.s-frentes', start: 'top top', end: () => '+=' + dist(), scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
   });
-  mmFrentes.add('(max-width: 900px)', () => {
-    /* celular: cada painel gruda no topo e o próximo sobe por cima; o de baixo recua */
-    const paineis = gsap.utils.toArray('.painel');
-    paineis.forEach((p, i) => {
-      const prox = paineis[i + 1];
-      if (prox) {
-        gsap.fromTo(p, { scale: 1, borderRadius: 0, filter: 'brightness(1)' }, { scale: 0.9, borderRadius: 18, filter: 'brightness(0.55)', ease: 'none',
-          scrollTrigger: { trigger: prox, start: 'top bottom', end: 'top top', scrub: true } });
-      }
-      const itens = p.querySelectorAll('.num-c, .h2, .lead, .tags .tag, .btn');
-      gsap.from(itens, { y: 36, autoAlpha: 0, stagger: 0.06, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: p, start: 'top 55%' } });
+  document.querySelectorAll('.painel:not(.painel-intro)').forEach(p => {
+    gsap.from(p.querySelectorAll('.num-c, .h2, .lead, .tags, .btn'), {
+      y: 60, autoAlpha: 0, stagger: 0.08, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: p, containerAnimation: scrollTween, start: () => desktop() ? 'left 70%' : 'left 60%' }
     });
   });
 
