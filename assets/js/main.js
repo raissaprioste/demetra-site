@@ -171,6 +171,9 @@ const WHATSAPP = '55XXXXXXXXXXX';
       const pilha = document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2);
       const fundo = pilha.find(el => el !== waFloat && !waFloat.contains(el));
       waFloat.classList.toggle('is-dark', !!(fundo && fundo.closest(FUNDO_TANGERINA)));
+      /* na primeira dobra já existe o botão de conversar; o flutuante só aparece depois dela */
+      const heroEl = document.querySelector('.s-hero');
+      if (heroEl) waFloat.classList.toggle('is-oculto', heroEl.getBoundingClientRect().bottom > window.innerHeight * 0.4);
     };
     gsap.ticker.add(checaFundo);
   }
@@ -265,11 +268,11 @@ const WHATSAPP = '55XXXXXXXXXXX';
   /* micropausa depois de "né?" */
   const notaCorte = notaTexto.indexOf('né?') >= 0 ? notaTexto.indexOf('né?') + 3 : notaLetras.length;
   gsap.set(notaEl, { autoAlpha: 1 });
-  gsap.set('.strike', { scaleX: 0, rotation: -1.2, transformOrigin: 'left center' });
+  gsap.set('.draft-frase', { '--rs': 0 });
 
   hero
     .to('.draft-text', { autoAlpha: 0.9, y: 0, duration: 0.7 })
-    .to('.strike', { scaleX: 1, duration: 0.8, ease: 'power1.inOut' }, '+=0.15')
+    .to('.draft-frase', { '--rs': 1, duration: 0.8, ease: 'power1.inOut' }, '+=0.15')
     .to('.draft-text', { autoAlpha: 0.38, duration: 0.8 }, '-=0.3')
     .to(notaLetras.slice(0, notaCorte), { visibility: 'visible', duration: 0.01, stagger: { each: 0.03, ease: 'none' } }, '+=0.15')
     .to(notaLetras.slice(notaCorte), { visibility: 'visible', duration: 0.01, stagger: { each: 0.03, ease: 'none' } }, '+=0.22')
