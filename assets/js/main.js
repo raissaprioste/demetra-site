@@ -299,21 +299,15 @@ const WHATSAPP = '55XXXXXXXXXXX';
      ========================================================= */
   const fora = gsap.utils.toArray('.fora li');
   const dentro = gsap.utils.toArray('.dentro li');
-  const mmConflito = gsap.matchMedia();
-  mmConflito.add('(min-width: 901px)', () => {
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: '.s-conflito', start: 'top top', end: '+=160%', scrub: 0.6, pin: true }
-    });
-    fora.forEach((li, i) => {
-      const span = li.querySelector('span');
-      tl.to(span, { '--s': 1, duration: 0.4 }, i * 0.5)
-        .to(li, { y: () => window.innerHeight * 0.7, rotate: gsap.utils.random(-28, 28), autoAlpha: 0, duration: 1, ease: 'power2.in' }, i * 0.5 + 0.35);
-      if (dentro[i]) tl.to(dentro[i], { opacity: 1, duration: 0.5 }, i * 0.5 + 0.2);
-    });
+  /* mesma cena fixada no celular e no computador: cada item de fora é riscado e cai, e um de dentro acende */
+  const tlConflito = gsap.timeline({
+    scrollTrigger: { trigger: '.s-conflito', start: 'top top', end: () => desktop() ? '+=160%' : '+=220%', scrub: 0.6, pin: true, invalidateOnRefresh: true }
   });
-  mmConflito.add('(max-width: 900px)', () => {
-    fora.forEach(li => gsap.to(li.querySelector('span'), { '--s': 1, scrollTrigger: { trigger: li, start: 'top 75%', end: 'top 55%', scrub: true } }));
-    dentro.forEach(li => gsap.to(li, { opacity: 1, scrollTrigger: { trigger: li, start: 'top 80%', end: 'top 60%', scrub: true } }));
+  fora.forEach((li, i) => {
+    const span = li.querySelector('span');
+    tlConflito.to(span, { '--s': 1, duration: 0.4 }, i * 0.5)
+      .to(li, { y: () => window.innerHeight * 0.7, rotate: gsap.utils.random(-28, 28), autoAlpha: 0, duration: 1, ease: 'power2.in' }, i * 0.5 + 0.35);
+    if (dentro[i]) tlConflito.to(dentro[i], { opacity: 1, duration: 0.5 }, i * 0.5 + 0.2);
   });
 
   /* =========================================================
@@ -346,22 +340,41 @@ const WHATSAPP = '55XXXXXXXXXXX';
     });
   });
   mmFrentes.add('(max-width: 900px)', () => {
-    document.querySelectorAll('.painel').forEach(p => gsap.from(p.children, {
-      y: 40, autoAlpha: 0, stagger: 0.06, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 80%' }
-    }));
+    /* celular: cada painel gruda no topo e o próximo sobe por cima; o de baixo recua */
+    const paineis = gsap.utils.toArray('.painel');
+    paineis.forEach((p, i) => {
+      const prox = paineis[i + 1];
+      if (prox) {
+        gsap.fromTo(p, { scale: 1, borderRadius: 0, filter: 'brightness(1)' }, { scale: 0.9, borderRadius: 18, filter: 'brightness(0.55)', ease: 'none',
+          scrollTrigger: { trigger: prox, start: 'top bottom', end: 'top top', scrub: true } });
+      }
+      const itens = p.querySelectorAll('.num-c, .h2, .lead, .tags .tag, .btn');
+      gsap.from(itens, { y: 36, autoAlpha: 0, stagger: 0.06, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: p, start: 'top 55%' } });
+    });
   });
 
   /* =========================================================
      04 · PROVA — papéis espalhados que se arrumam na mesa
      ========================================================= */
   const papeis = gsap.utils.toArray('.papel');
-  const espalha = desktop() ? 1 : 0.25;
-  papeis.forEach(p => {
-    gsap.fromTo(p,
-      { xPercent: +p.dataset.x * espalha, yPercent: +p.dataset.y * espalha, rotate: +p.dataset.r * (desktop() ? 1.6 : 0.6) },
-      { xPercent: 0, yPercent: 0, rotate: +p.dataset.r * 0.15, ease: 'none',
-        scrollTrigger: { trigger: '.mesa-papeis', start: 'top 95%', end: 'center 55%', scrub: 1 } });
-  });
+  if (desktop()) {
+    papeis.forEach(p => {
+      gsap.fromTo(p,
+        { xPercent: +p.dataset.x, yPercent: +p.dataset.y, rotate: +p.dataset.r * 1.6 },
+        { xPercent: 0, yPercent: 0, rotate: +p.dataset.r * 0.15, ease: 'none',
+          scrollTrigger: { trigger: '.mesa-papeis', start: 'top 95%', end: 'center 55%', scrub: 1 } });
+    });
+  } else {
+    /* celular: cada papel entra por um lado, torto, e se assenta enquanto a pessoa rola */
+    papeis.forEach((p, i) => {
+      const lado = i % 2 ? 1 : -1;
+      gsap.fromTo(p,
+        { xPercent: lado * 70, rotate: lado * 14, autoAlpha: 0.2 },
+        { xPercent: 0, rotate: +p.dataset.r * 0.12, autoAlpha: 1, ease: 'none',
+          scrollTrigger: { trigger: p, start: 'top bottom', end: 'top 55%', scrub: 0.8 } });
+    });
+  }
   /* marca-texto tangerina passa sobre os trechos destacados dos prints */
   document.querySelectorAll('.print-shot').forEach(shot => {
     gsap.to(shot.querySelectorAll('.marca-texto'), { scaleX: 1, duration: 0.7, stagger: 0.35, ease: 'power2.inOut',
@@ -393,6 +406,10 @@ const WHATSAPP = '55XXXXXXXXXXX';
     const w = splitWords(citacao);
     gsap.from(w, { yPercent: 110, stagger: 0.04, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: citacao, start: 'top 85%' } });
   }
+
+  /* leituras: cartões sobem em sequência */
+  gsap.from('.leitura', { y: 50, autoAlpha: 0, stagger: 0.1, duration: 0.9, ease: 'power3.out',
+    scrollTrigger: { trigger: '.leituras-grid', start: 'top 80%' } });
 
   /* =========================================================
      06 · FINAL
