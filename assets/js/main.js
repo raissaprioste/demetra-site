@@ -364,7 +364,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
   });
   /* marca-texto tangerina passa sobre os trechos destacados dos prints */
   document.querySelectorAll('.print-shot').forEach(shot => {
-    gsap.to(shot.querySelectorAll('.marca'), { scaleX: 1, duration: 0.7, stagger: 0.35, ease: 'power2.inOut',
+    gsap.to(shot.querySelectorAll('.marca-texto'), { scaleX: 1, duration: 0.7, stagger: 0.35, ease: 'power2.inOut',
       scrollTrigger: { trigger: shot, start: 'top 65%' } });
   });
   if (fine) {

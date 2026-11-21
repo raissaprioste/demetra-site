@@ -304,5 +304,5 @@ section{position:relative}
 
 /* ---------- Marca-texto nos prints ---------- */
 .print-shot{position:relative}
-.marca{position:absolute;background:var(--tangerina);mix-blend-mode:multiply;opacity:.55;border-radius:3px;transform:scaleX(0);transform-origin:left center;pointer-events:none}
-@media (prefers-reduced-motion: reduce){.marca{transform:none}}
+.marca-texto{position:absolute;background:var(--tangerina);mix-blend-mode:multiply;opacity:.55;border-radius:3px;transform:scaleX(0);transform-origin:left center;pointer-events:none}
+@media (prefers-reduced-motion: reduce){.marca-texto{transform:none}}
