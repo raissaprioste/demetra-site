@@ -223,15 +223,15 @@ const WHATSAPP = '55XXXXXXXXXXX';
       .to('.intro-dot', { autoAlpha: 1, scale: 1, duration: 1.6, ease: 'power4.out' }, 1.4)
       /* gracejo: o ponto se abre num asterisco (sem passar do tamanho do ponto), gira e se fecha de novo.
          Cabe na janela que já existia antes do voo para a nav: a abertura não fica mais longa. */
-      .set('.dot-ast', { visibility: 'visible' }, 1.8)
-      .set('.dot-core', { autoAlpha: 0 }, 1.8)
-      .to('.dot-raios line', { attr: { y2: -42 }, duration: 0.12, ease: 'power3.out' }, 1.8)
-      .to('.dot-raios', { attr: { 'stroke-width': 14 }, duration: 0.12, ease: 'power3.out' }, 1.8)
-      .fromTo('.dot-raios', { rotation: 0, svgOrigin: '0 0' }, { rotation: 30, svgOrigin: '0 0', duration: 0.5, ease: 'sine.out' }, 1.8)
-      .to('.dot-raios line', { attr: { y2: -0.01 }, duration: 0.14, ease: 'expo.in' }, 2.16)
-      .to('.dot-raios', { attr: { 'stroke-width': 100 }, duration: 0.14, ease: 'expo.in' }, 2.16)
-      .set('.dot-core', { autoAlpha: 1 }, 2.3)
-      .set('.dot-ast', { visibility: 'hidden' }, 2.3)
+      .set('.dot-ast', { visibility: 'visible' }, 1.55)
+      .set('.dot-core', { autoAlpha: 0 }, 1.55)
+      .to('.dot-raios line', { attr: { y2: -42 }, duration: 0.18, ease: 'power3.out' }, 1.55)
+      .to('.dot-raios', { attr: { 'stroke-width': 14 }, duration: 0.18, ease: 'power3.out' }, 1.55)
+      .fromTo('.dot-raios', { rotation: 0, svgOrigin: '0 0' }, { rotation: 30, svgOrigin: '0 0', duration: 1.05, ease: 'sine.out' }, 1.55)
+      .to('.dot-raios line', { attr: { y2: -0.01 }, duration: 0.2, ease: 'expo.in' }, 2.4)
+      .to('.dot-raios', { attr: { 'stroke-width': 100 }, duration: 0.2, ease: 'expo.in' }, 2.4)
+      .set('.dot-core', { autoAlpha: 1 }, 2.6)
+      .set('.dot-ast', { visibility: 'hidden' }, 2.6)
       .add(() => {
         /* calcula o voo até a logo da nav (FLIP) */
         const a = logoIntro.getBoundingClientRect();
