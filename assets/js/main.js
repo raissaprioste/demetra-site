@@ -221,6 +221,14 @@ const WHATSAPP = '55XXXXXXXXXXX';
       .to(onda, { p: 1, duration: 2.8, ease: 'sine.inOut', onUpdate: pintar,
         onComplete: () => { palavra.style.backgroundImage = 'linear-gradient(#FDEFE4,#FDEFE4)'; } })
       .to('.intro-dot', { autoAlpha: 1, scale: 1, duration: 1.6, ease: 'power4.out' }, 1.4)
+      /* gracejo: o ponto se contrai, explode num asterisco que gira e volta a ser ponto */
+      .to('.dot-core', { scale: 0.6, duration: 0.18, ease: 'power2.in' }, 2.05)
+      .to('.dot-core', { scale: 0, duration: 0.2, ease: 'power2.out' }, 2.23)
+      .fromTo('.dot-ast', { autoAlpha: 1, scale: 0.15, rotation: -90 },
+        { scale: 1, rotation: 0, duration: 0.55, ease: 'back.out(2.2)' }, 2.23)
+      .to('.dot-ast', { rotation: 30, duration: 0.3, ease: 'sine.inOut' }, 2.78)
+      .to('.dot-ast', { scale: 0, rotation: 120, duration: 0.32, ease: 'power3.in' }, 3.08)
+      .to('.dot-core', { scale: 1, duration: 0.55, ease: 'back.out(3)' }, 3.3)
       .add(() => {
         /* calcula o voo até a logo da nav (FLIP) */
         const a = logoIntro.getBoundingClientRect();
@@ -230,7 +238,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
           x: (b.left + b.width / 2) - (a.left + a.width / 2),
           y: (b.top + b.height / 2) - (a.top + a.height / 2),
           scale: escala, duration: 1, ease: 'expo.inOut'
-        }, 2.7)
+        }, 3.75)
         .to(introEl, { backgroundColor: 'rgba(15,42,40,0)', duration: 0.6, ease: 'power2.out' }, '-=0.35')
         .set('.nav', { autoAlpha: 1 });
       }, 0);
@@ -240,7 +248,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
     introEl.addEventListener('click', pular);
     window.addEventListener('keydown', pular, { once: true });
     /* segurança: nunca prende a página */
-    setTimeout(() => { if (document.documentElement.classList.contains('intro-on')) fimIntro(); }, 6000);
+    setTimeout(() => { if (document.documentElement.classList.contains('intro-on')) fimIntro(); }, 7000);
   } else {
     hero.delay(0.3).play();
   }

@@ -248,7 +248,11 @@ section{position:relative}
 .intro-on .intro{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:var(--abeto);cursor:pointer}
 .intro-logo{font-family:var(--f-display);font-weight:400;font-size:min(25vw,46vh);line-height:1;letter-spacing:-.01em;color:var(--claro);white-space:nowrap;will-change:transform}
 .intro-word{display:inline-block;padding:.06em 0 .1em;margin:-.06em 0 -.1em;color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(transparent,transparent)}
-.intro-dot{transform-origin:50% 50%}
+.intro-dot{transform-origin:50% 50%;position:relative;overflow:visible;background:none}
+/* gracejo: o ponto explode num asterisco e volta a ser ponto */
+.dot-core{position:absolute;inset:0;border-radius:50%;background:var(--tangerina)}
+.dot-ast{position:absolute;left:50%;top:50%;width:3.6em;height:3.6em;margin:-2.4em 0 0 -1.4em;overflow:visible;stroke:var(--tangerina);stroke-width:15;stroke-linecap:round;fill:none;opacity:0;transform:scale(0)}
+.dot-ast{font-size:.097em}
 @media (prefers-reduced-motion: reduce){.intro-on .intro{display:none}}
 
 /* ---------- Frentes · ênfase e numeração ---------- */
