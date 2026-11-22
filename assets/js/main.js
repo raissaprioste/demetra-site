@@ -221,14 +221,17 @@ const WHATSAPP = '55XXXXXXXXXXX';
       .to(onda, { p: 1, duration: 2.8, ease: 'sine.inOut', onUpdate: pintar,
         onComplete: () => { palavra.style.backgroundImage = 'linear-gradient(#FDEFE4,#FDEFE4)'; } })
       .to('.intro-dot', { autoAlpha: 1, scale: 1, duration: 1.6, ease: 'power4.out' }, 1.4)
-      /* gracejo: o ponto se contrai, explode num asterisco que gira e volta a ser ponto */
-      .to('.dot-core', { scale: 0.6, duration: 0.18, ease: 'power2.in' }, 2.05)
-      .to('.dot-core', { scale: 0, duration: 0.2, ease: 'power2.out' }, 2.23)
-      .fromTo('.dot-ast', { autoAlpha: 1, scale: 0.15, rotation: -90 },
-        { scale: 1, rotation: 0, duration: 0.55, ease: 'back.out(2.2)' }, 2.23)
-      .to('.dot-ast', { rotation: 30, duration: 0.3, ease: 'sine.inOut' }, 2.78)
-      .to('.dot-ast', { scale: 0, rotation: 120, duration: 0.32, ease: 'power3.in' }, 3.08)
-      .to('.dot-core', { scale: 1, duration: 0.55, ease: 'back.out(3)' }, 3.3)
+      /* gracejo: o ponto se abre num asterisco (sem passar do tamanho do ponto), gira e se fecha de novo.
+         Cabe na janela que já existia antes do voo para a nav: a abertura não fica mais longa. */
+      .set('.dot-ast', { visibility: 'visible' }, 1.8)
+      .set('.dot-core', { autoAlpha: 0 }, 1.8)
+      .to('.dot-raios line', { attr: { y2: -36 }, duration: 0.34, ease: 'power3.out' }, 1.8)
+      .to('.dot-raios', { attr: { 'stroke-width': 26 }, duration: 0.34, ease: 'power3.out' }, 1.8)
+      .fromTo('.dot-raios', { rotation: 0, svgOrigin: '0 0' }, { rotation: 150, svgOrigin: '0 0', duration: 0.78, ease: 'sine.inOut' }, 1.8)
+      .to('.dot-raios line', { attr: { y2: -0.01 }, duration: 0.36, ease: 'expo.inOut' }, 2.22)
+      .to('.dot-raios', { attr: { 'stroke-width': 100 }, duration: 0.36, ease: 'expo.inOut' }, 2.22)
+      .set('.dot-core', { autoAlpha: 1 }, 2.58)
+      .set('.dot-ast', { visibility: 'hidden' }, 2.58)
       .add(() => {
         /* calcula o voo até a logo da nav (FLIP) */
         const a = logoIntro.getBoundingClientRect();
@@ -238,7 +241,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
           x: (b.left + b.width / 2) - (a.left + a.width / 2),
           y: (b.top + b.height / 2) - (a.top + a.height / 2),
           scale: escala, duration: 1, ease: 'expo.inOut'
-        }, 3.75)
+        }, 2.7)
         .to(introEl, { backgroundColor: 'rgba(15,42,40,0)', duration: 0.6, ease: 'power2.out' }, '-=0.35')
         .set('.nav', { autoAlpha: 1 });
       }, 0);
@@ -248,7 +251,7 @@ const WHATSAPP = '55XXXXXXXXXXX';
     introEl.addEventListener('click', pular);
     window.addEventListener('keydown', pular, { once: true });
     /* segurança: nunca prende a página */
-    setTimeout(() => { if (document.documentElement.classList.contains('intro-on')) fimIntro(); }, 7000);
+    setTimeout(() => { if (document.documentElement.classList.contains('intro-on')) fimIntro(); }, 6000);
   } else {
     hero.delay(0.3).play();
   }
