@@ -225,11 +225,11 @@ const WHATSAPP = '55XXXXXXXXXXX';
          Cabe na janela que já existia antes do voo para a nav: a abertura não fica mais longa. */
       .set('.dot-ast', { visibility: 'visible' }, 1.8)
       .set('.dot-core', { autoAlpha: 0 }, 1.8)
-      .to('.dot-raios line', { attr: { y2: -42 }, duration: 0.2, ease: 'power3.out' }, 1.8)
-      .to('.dot-raios', { attr: { 'stroke-width': 14 }, duration: 0.2, ease: 'power3.out' }, 1.8)
-      .fromTo('.dot-raios', { rotation: 0, svgOrigin: '0 0' }, { rotation: 300, svgOrigin: '0 0', duration: 0.5, ease: 'power2.inOut' }, 1.8)
-      .to('.dot-raios line', { attr: { y2: -0.01 }, duration: 0.22, ease: 'expo.in' }, 2.08)
-      .to('.dot-raios', { attr: { 'stroke-width': 100 }, duration: 0.22, ease: 'expo.in' }, 2.08)
+      .to('.dot-raios line', { attr: { y2: -42 }, duration: 0.12, ease: 'power3.out' }, 1.8)
+      .to('.dot-raios', { attr: { 'stroke-width': 14 }, duration: 0.12, ease: 'power3.out' }, 1.8)
+      .fromTo('.dot-raios', { rotation: 0, svgOrigin: '0 0' }, { rotation: 120, svgOrigin: '0 0', duration: 0.5, ease: 'power1.inOut' }, 1.8)
+      .to('.dot-raios line', { attr: { y2: -0.01 }, duration: 0.14, ease: 'expo.in' }, 2.16)
+      .to('.dot-raios', { attr: { 'stroke-width': 100 }, duration: 0.14, ease: 'expo.in' }, 2.16)
       .set('.dot-core', { autoAlpha: 1 }, 2.3)
       .set('.dot-ast', { visibility: 'hidden' }, 2.3)
       .add(() => {
