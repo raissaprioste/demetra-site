@@ -344,3 +344,7 @@ html,body{overflow-x:clip}
   .hero-lead{margin-top:min(26px,2.8svh);font-size:min(17px,2.3svh)}
   .hero-actions{margin-top:min(28px,3svh);gap:10px}
 }
+
+/* fim da rolagem lateral: o último painel (branco) termina ocupando a tela inteira */
+.painel-fim{flex-shrink:0;height:100%;background:var(--branco);width:calc(100vw - min(78vw,980px))}
+@media (max-width:900px){.painel-fim{width:12vw}}
