@@ -99,7 +99,8 @@ section{position:relative}
 .nav.is-scrolled{background:rgba(15,42,40,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .nav.is-hidden{transform:translateY(-110%)}
 .logo{font-family:var(--f-display);font-weight:400;font-size:30px;letter-spacing:-.01em}
-.logo b{color:var(--tangerina);font-weight:400}
+/* ponto da logo: círculo perfeito (o ponto da Apple Garamond é ovalado). Medidas tiradas do glifo: diâmetro .097em, recuos .065em/.066em, base -.01em */
+.logo b,.intro-dot{display:inline-block;width:.097em;height:.097em;margin:0 .066em 0 .065em;vertical-align:-.01em;border-radius:50%;background:var(--tangerina);color:transparent;overflow:hidden;line-height:0;font-weight:400}
 .nav-links{display:flex;gap:28px}
 .nav-links a{opacity:.75;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
@@ -248,7 +249,7 @@ section{position:relative}
 .intro-on .intro{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:var(--abeto);cursor:pointer}
 .intro-logo{font-family:var(--f-display);font-weight:400;font-size:min(25vw,46vh);line-height:1;letter-spacing:-.01em;color:var(--claro);white-space:nowrap;will-change:transform}
 .intro-word{display:inline-block;padding:.06em 0 .1em;margin:-.06em 0 -.1em;color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(transparent,transparent)}
-.intro-dot{display:inline-block;color:var(--tangerina);font-weight:400;transform-origin:50% 75%}
+.intro-dot{transform-origin:50% 50%}
 @media (prefers-reduced-motion: reduce){.intro-on .intro{display:none}}
 
 /* ---------- Frentes · ênfase e numeração ---------- */
