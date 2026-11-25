@@ -349,3 +349,7 @@ html,body{overflow-x:clip}
 /* fim da rolagem lateral: o último painel (branco) termina ocupando a tela inteira */
 .painel-fim{flex-shrink:0;height:100%;background:var(--branco);width:calc(100vw - min(78vw,980px))}
 @media (max-width:900px){.painel-fim{width:12vw}}
+
+/* perfil do Instagram nos cartões de depoimento */
+.papel .ig{display:block;font-size:11.5px;opacity:.6;color:inherit;text-decoration:none;margin-top:4px}
+.papel .ig:hover{opacity:1;color:var(--tangerina-escura)}

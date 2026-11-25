@@ -330,10 +330,14 @@ const WHATSAPP = '55XXXXXXXXXXX';
   /* rolagem horizontal fixa — no celular e no computador */
   const track = document.querySelector('.frentes-track');
   const dist = () => track.scrollWidth - window.innerWidth;
-  const scrollTween = gsap.to(track, {
-    x: () => -dist(), ease: 'none',
-    scrollTrigger: { trigger: '.s-frentes', start: 'top top', end: () => '+=' + dist(), scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
+  /* no computador, o último painel (branco) fica parado um trecho a mais antes de soltar a rolagem vertical */
+  const folga = () => desktop() ? window.innerHeight * 0.9 : window.innerHeight * 0.35;
+  const scrollTween = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: { trigger: '.s-frentes', start: 'top top', end: () => '+=' + (dist() + folga()), scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
   });
+  scrollTween.to(track, { x: () => -dist(), duration: () => dist() })
+    .to({}, { duration: () => folga() });
   document.querySelectorAll('.painel:not(.painel-intro)').forEach(p => {
     gsap.from(p.querySelectorAll('.num-c, .h2, .lead, .tags, .btn'), {
       y: 60, autoAlpha: 0, stagger: 0.08, duration: 0.8, ease: 'power3.out',
