@@ -288,6 +288,11 @@ const WHATSAPP = '55XXXXXXXXXXX';
     scrollTrigger: { trigger: '.s-hero', start: 'top top', end: 'bottom top', scrub: true }
   });
 
+  /* ---------- Sublinhado de "sem se vender." ---------- */
+  const semSe = document.querySelector('.sem-se');
+  if (semSe) gsap.to(semSe, { '--u': 1, duration: 0.9, ease: 'power2.inOut', delay: 0.6,
+    scrollTrigger: { trigger: semSe, start: 'top 82%' } });
+
   /* ---------- Títulos com entrada palavra-por-palavra ---------- */
   document.querySelectorAll('.split').forEach(el => {
     const words = splitWords(el);
