@@ -375,3 +375,16 @@ html,body{overflow-x:clip}
 /* "&" da mesa: itálico Garamond tangerina, um pouco maior */
 .e-comercial{font-style:italic;color:var(--tangerina);font-size:1.18em;line-height:0;padding:0 .04em}
 .e-comercial .w{padding-right:.08em;margin-right:-.08em}
+
+/* depoimentos: sempre 8 em grade completa — 4×2 em telas largas, 2×4 no resto */
+.mesa-papeis{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+@media (max-width:1000px){.mesa-papeis{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
+@media (max-width:560px){
+  .mesa-papeis{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .papel{padding:10px;border-radius:8px}
+  .papel figcaption{margin-top:10px}
+  .papel figcaption b{font-size:15px;line-height:1.15}
+  .papel .desc{font-size:12px;line-height:1.3}
+  .papel .ig{font-size:10px;word-break:break-word}
+  .papel .servico{font-size:10.5px;line-height:1.35}
+}
