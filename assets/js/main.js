@@ -26,11 +26,6 @@ const WHATSAPP = '55XXXXXXXXXXX';
   };
   if (clock) { tick(); setInterval(tick, 20000); }
 
-  const tituloOriginal = document.title;
-  document.addEventListener('visibilitychange', () => {
-    document.title = document.hidden ? 'volta: a ideia ainda não terminou.' : tituloOriginal;
-  });
-
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
 
