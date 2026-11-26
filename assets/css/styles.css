@@ -372,3 +372,6 @@ html,body{overflow-x:clip}
 .ig-link .ig-ico{flex-shrink:0}
 .rodape-dir{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .rodape .ig-link{margin-top:0}
+/* "&" da mesa: itálico Garamond tangerina, um pouco maior */
+.e-comercial{font-style:italic;color:var(--tangerina);font-size:1.18em;line-height:0;padding:0 .04em}
+.e-comercial .w{padding-right:.08em;margin-right:-.08em}
